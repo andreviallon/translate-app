@@ -1,11 +1,20 @@
+import { makeStyles, createStyles, Container } from '@material-ui/core';
 import Head from 'next/head';
-import styles from '../styles/Home.module.scss';
+import Header from '../components/header';
 
-import Header from './header';
+const useStyles = makeStyles(() =>
+  createStyles({
+    container: {
+      marginTop: '5rem'
+    }
+  })
+);
 
 export default function Home() {
+  const classes = useStyles();
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Translate App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -13,9 +22,9 @@ export default function Home() {
 
       <Header />
 
-      <div>
+      <Container className={classes.container}>
         content
-      </div>
+      </Container>
 
 
     </div>
