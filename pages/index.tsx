@@ -1,18 +1,23 @@
-import { makeStyles, createStyles, Container } from '@material-ui/core';
 import Head from 'next/head';
 import Header from '../components/header';
+import styled from 'styled-components';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {
-      marginTop: '5rem'
-    }
-  })
-);
+export interface UserDetails {
+  firstName: string;
+  lastName: string;
+}
+
+const userInfo: UserDetails = {
+  firstName: 'John',
+  lastName: 'Doe'
+}
+
+const Container = styled.div`
+  margin-top: 5rem;
+  display: flex;
+`;
 
 export default function Home() {
-  const classes = useStyles();
-
   return (
     <div>
       <Head>
@@ -20,12 +25,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
-
-      <Container className={classes.container}>
+      <Header userInfo={userInfo}/>
+      
+      <Container>
         content
       </Container>
-
 
     </div>
   )

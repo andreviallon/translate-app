@@ -1,116 +1,68 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            width: '100%'
-        },
-        flexContainer: {
-            display: 'flex',
-            flexGrow: 1,
-            justifyContent: 'space-between'
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-        menuItem: {
-            padding: '0.1rem 1.8rem'
-        },
-        sectionDesktop: {
-            display: 'none',
-            [theme.breakpoints.up('md')]: {
-                display: 'flex',
-                flexGrow: 1,
-                justifyContent: 'space-between',
-                marginLeft: '1rem'
-            },
-        },
-        sectionMobile: {
-            display: 'flex',
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
-        }
-    }),
-);
+const Nav = styled.nav`
+    display: flex;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    padding: 0 3rem;
+    height: 64px;
+`;
 
-export default function Header() {
-    const classes = useStyles();
-    
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-    
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    
-    const mobileMenuId = 'mobile-menu';
-    
-    const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
-    
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => setMobileMoreAnchorEl(event.currentTarget);
+const H1 = styled.h1`
+    font-size: 1.3rem;
+    margin: 0;
+`;
 
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={mobileMenuId}
-            keepMounted
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}>
-            <MenuItem className={classes.menuItem}>
-                <p>Translate</p>
-            </MenuItem>
-            <MenuItem className={classes.menuItem}>
-                <p>History</p>
-            </MenuItem>
-            <MenuItem className={classes.menuItem}>
-                <p>Profile</p>
-            </MenuItem>
-            <MenuItem className={classes.menuItem}>
-                <p>Logout</p>
-            </MenuItem>
-        </Menu>
-    );
+const Menu = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 2rem;
+    flex-grow: 1;
+`;
 
+const MenuItem = styled.a`
+    margin: 0.2rem 1rem 0; 
+    font-weight: 500;
+    cursor: pointer;
+`;
+
+const UserMenuItem = styled(MenuItem)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        width: 0.8rem;
+        margin-left: 0.5rem;
+    }
+`;
+
+export default function Header(props) {
+    console.log('userInfo', props.userInfo);
     return (
-        <>
-            <AppBar position="fixed" color="default">
-                <Toolbar className={classes.flexContainer}>
-                    <Typography variant="h6">
-                        Translate App
-                    </Typography>
-                    <div className={classes.sectionDesktop}>
-                        <div>
-                            <Button className={classes.menuButton}>Translate</Button>
-                            <Button className={classes.menuButton}>History</Button>
-                        </div>
-                        <div>
-                            <Button className={classes.menuButton} variant="outlined" color="primary">Login</Button>
-                            <Button variant="contained" color="primary" disableElevation>Sign up</Button>
-                        </div>
-                    </div>
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit">
-                            <MenuIcon />
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-        </>
+        <Nav>
+            <H1>Translate App</H1>
+            <Menu>
+                <div>
+                    <MenuItem>Translate</MenuItem>
+                    <MenuItem>History</MenuItem>
+                    <MenuItem>Favorite</MenuItem>
+                </div>
+                <div>
+                    <UserMenuItem>
+                        {props.userInfo.firstName} {props.userInfo.lastName}
+                        <FontAwesomeIcon icon={faAngleDown} />
+                    </UserMenuItem>
+                </div>
+            </Menu>
+        </Nav>
     );
 }
