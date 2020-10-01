@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -17,14 +18,13 @@ const Nav = styled.nav`
 
 const H1 = styled.h1`
     font-size: 1.3rem;
-    margin: 0;
+    margin: 0 1rem 0 0;
 `;
 
 const Menu = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin: 0 2rem;
     flex-grow: 1;
 `;
 
@@ -45,8 +45,55 @@ const UserMenuItem = styled(MenuItem)`
     }
 `;
 
+const Dropdown = styled.div`
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    z-index: 1;
+`;
+
+const Flex = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const DropdownItem = styled.div`
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 1rem;
+`;
+
+const Overlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+`;
+
 export default function Header(props) {
-    console.log('userInfo', props.userInfo);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const closeDropdown = () => {
+        setDropdownOpen(false)
+    }
+
+    const HeaderDropdown = () => {
+        return(
+            <>
+            <Dropdown>
+                <Flex>
+                    <DropdownItem onClick={() => closeDropdown()}>Profile</DropdownItem>
+                    <DropdownItem onClick={() => closeDropdown()}>Logout</DropdownItem>
+                </Flex>
+            </Dropdown>
+            <Overlay onClick={() => closeDropdown()} />
+            </>
+        );
+    }
+
     return (
         <Nav>
             <H1>Translate App</H1>
@@ -57,10 +104,11 @@ export default function Header(props) {
                     <MenuItem>Favorite</MenuItem>
                 </div>
                 <div>
-                    <UserMenuItem>
+                    <UserMenuItem onClick={() => setDropdownOpen(!dropdownOpen)}>
                         {props.userInfo.firstName} {props.userInfo.lastName}
                         <FontAwesomeIcon icon={faAngleDown} />
                     </UserMenuItem>
+                    {dropdownOpen ? <HeaderDropdown /> : ""}
                 </div>
             </Menu>
         </Nav>
