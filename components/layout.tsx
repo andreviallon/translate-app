@@ -1,34 +1,33 @@
-import { useState } from "react";
 import Header from './header';
 import styled from 'styled-components';
+import { useContext } from "react";
 import { Container, Row, Col } from 'react-grid-system';
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../core/theme";
 import { GlobalStyles } from "../core/global";
+import { ThemeContext, ThemeStateProvider, Theme} from "../context/theme/ThemeState";
 
 const Main = styled.div`
     padding-top: 7rem;
 `;
 
 export default function Layout({ children }) {
-	const [theme, setTheme] = useState("light");
-
-	const toggleTheme = () => theme === "light" ? setTheme("dark") : setTheme("light");
+    const { theme } = useContext(ThemeContext);
 
     return (
-        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-            <>
+        <ThemeStateProvider>
+            <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>
                 <GlobalStyles />
                 <Header />
                 <Container>
                     <Row>
                         <Col>
                             <Main>{children}</Main>
-                            <button onClick={toggleTheme}>Toggle theme</button>
+                            <p>theme: {theme}</p>
                         </Col>
                     </Row>
                 </Container>
-            </>
-        </ThemeProvider>
+            </ThemeProvider>
+        </ThemeStateProvider>
     );
 }

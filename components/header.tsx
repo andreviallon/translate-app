@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { ThemeContext } from '../context/theme/ThemeState';
 
 const Nav = styled.nav`
     display: flex;
@@ -57,6 +58,7 @@ const Dropdown = styled.div`
     border-radius: 8px;
     z-index: 3;
     top: 55px;
+    right: 50px;
 `;
 
 const Flex = styled.div`
@@ -81,21 +83,33 @@ const Overlay = styled.div`
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const { theme, setTheme } = useContext(ThemeContext);
+
+    const toggleTheme = () => setTheme();
 
     const closeDropdown = () => {
         setDropdownOpen(false)
     }
 
     const HeaderDropdown = () => {
-        return(
+        return (
             <>
-            <Dropdown>
-                <Flex>
-                    <DropdownItem onClick={() => closeDropdown()}>Profile</DropdownItem>
-                    <DropdownItem onClick={() => closeDropdown()}>Logout</DropdownItem>
-                </Flex>
-            </Dropdown>
-            <Overlay onClick={() => closeDropdown()} />
+                <Dropdown>
+                    <Flex>
+                        <DropdownItem onClick={() => toggleTheme()}>
+                            <button onClick={toggleTheme}>
+                                current theme {theme}
+                            </button>
+                        </DropdownItem>
+                        <DropdownItem onClick={() => closeDropdown()}>
+                            Profile
+                        </DropdownItem>
+                        <DropdownItem onClick={() => closeDropdown()}>
+                            Logout
+                        </DropdownItem>
+                    </Flex>
+                </Dropdown>
+                <Overlay onClick={() => closeDropdown()} />
             </>
         );
     }
@@ -110,9 +124,7 @@ export default function Header() {
                     <MenuItem>Favorite</MenuItem>
                 </div>
                 <div>
-                    <UserMenuItem
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                    >
+                    <UserMenuItem onClick={() => setDropdownOpen(!dropdownOpen)}>
                         <span>John Doe</span>
                         <FontAwesomeIcon icon={faAngleDown} />
                     </UserMenuItem>
