@@ -13,15 +13,7 @@ const Main = styled.div`
 export default function Layout({ children }) {
 	const [theme, setTheme] = useState("light");
 
-	const toggleTheme = () => {
-		if (theme === "light") {
-			setTheme("dark");
-        } else {
-			setTheme("light");
-        }
-		console.log('toggle theme', theme);
-
-    };
+	const toggleTheme = () => theme === "light" ? setTheme("dark") : setTheme("light");
 
     return (
         <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
