@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 const Nav = styled.nav`
     display: flex;
     align-items: center;
-    background-color: white;
+    background-color: ${({ theme }) => theme.body};
     position: fixed;
     top: 0;
     left: 0;
@@ -50,9 +50,9 @@ const UserMenuItem = styled(MenuItem)`
 `;
 
 const Dropdown = styled.div`
+    background: ${({ theme }) => theme.body};
     position: absolute;
-    background-color: white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     padding: 1rem 0;
     border-radius: 8px;
     z-index: 3;
@@ -68,10 +68,6 @@ const DropdownItem = styled.div`
     font-size: 1.1rem;
     cursor: pointer;
     padding: 1rem 2.5rem;
-
-    &:hover {
-        background-color: #f7f7f7;
-    }
 `;
 
 const Overlay = styled.div`
