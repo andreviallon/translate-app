@@ -14,6 +14,7 @@ const Nav = styled.nav`
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     padding: 0 3rem;
     height: 64px;
+    z-index: 1;
 `;
 
 const H1 = styled.h1`
@@ -38,6 +39,9 @@ const UserMenuItem = styled(MenuItem)`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
+    margin: 0.2rem 0 0;
+    cursor: pointer;
 
     svg {
         width: 0.8rem;
@@ -49,9 +53,10 @@ const Dropdown = styled.div`
     position: absolute;
     background-color: white;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     border-radius: 8px;
-    z-index: 1;
+    z-index: 3;
+    top: 55px;
 `;
 
 const Flex = styled.div`
@@ -62,7 +67,11 @@ const Flex = styled.div`
 const DropdownItem = styled.div`
     font-size: 1.1rem;
     cursor: pointer;
-    padding: 1rem;
+    padding: 1rem 2.5rem;
+
+    &:hover {
+        background-color: #f7f7f7;
+    }
 `;
 
 const Overlay = styled.div`
@@ -71,9 +80,10 @@ const Overlay = styled.div`
     left: 0;
     bottom: 0;
     right: 0;
+    z-index: 2;
 `;
 
-export default function Header(props) {
+export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const closeDropdown = () => {
@@ -104,8 +114,10 @@ export default function Header(props) {
                     <MenuItem>Favorite</MenuItem>
                 </div>
                 <div>
-                    <UserMenuItem onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {props.userInfo.firstName} {props.userInfo.lastName}
+                    <UserMenuItem
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                    >
+                        <span>John Doe</span>
                         <FontAwesomeIcon icon={faAngleDown} />
                     </UserMenuItem>
                     {dropdownOpen ? <HeaderDropdown /> : ""}

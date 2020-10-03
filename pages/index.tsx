@@ -1,21 +1,10 @@
 import Head from 'next/head';
-import Header from '../components/header';
-import styled from 'styled-components';
+import Layout from '../components/layout';
 
 export interface UserDetails {
   firstName: string;
   lastName: string;
 }
-
-const userInfo: UserDetails = {
-  firstName: 'John',
-  lastName: 'Doe'
-}
-
-const Container = styled.div`
-  margin-top: 5rem;
-  display: flex;
-`;
 
 export default function Home() {
   return (
@@ -24,13 +13,10 @@ export default function Home() {
         <title>Translate App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header userInfo={userInfo}/>
+      <Layout>
+        <h1>content</h1>
+      </Layout>
       
-      <Container>
-        content
-      </Container>
-
     </div>
   )
 }
