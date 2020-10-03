@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import { ThemeContext } from '../context/theme/ThemeState';
+import { Theme, ThemeContext } from '../context/theme/ThemeState';
 
 const Nav = styled.nav`
     display: flex;
@@ -69,7 +69,8 @@ const Flex = styled.div`
 const DropdownItem = styled.div`
     font-size: 1.1rem;
     cursor: pointer;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
+    display: flex;
 `;
 
 const Overlay = styled.div`
@@ -80,6 +81,103 @@ const Overlay = styled.div`
     right: 0;
     z-index: 2;
 `;
+
+const Input = styled.input`
+    display: none;
+        
+    &+label {
+        border-radius: 9px;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        transition: box-shadow .4s;
+        
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            transition: opacity .4s;
+        }
+    }
+    &:not(:checked) {
+        & + label {
+            pointer-events: none;
+            & + span {
+                opacity: 1;
+                transform: translateY(12px);
+            }
+        }
+    }
+    &:checked {
+        & + label {
+            --offset: 18px;
+            --gradient: 1;
+            --shadow: rgba(0, 6, 39, .1);
+            --light-shadow: rgba(255, 255, 255, .8);
+            --light-shadow-2: rgba(255, 255, 255, .1);
+        }
+    }
+`;
+
+const Switch = styled.div`
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    vertical-align: top;
+    height: 22px;
+    width: 40px;
+    border-radius: 11px;
+    background: #ECEFFC;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #4F97FF, #3D85CC);
+        opacity: var(--gradient, 0);
+        transition: opacity .4s;
+    }
+`;
+
+const Dot = styled.div`
+    background: #D1D6EE;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    left: -1px;
+    top: -1px;
+    transform: translateX(var(--offset, 0));
+    transition: transform .4s, box-shadow .4s;
+    box-shadow: -4px -4px 8px var(--light-shadow-2, transparent), 4px 4px 8px var(--shadow, transparent);
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: inherit;
+        background: linear-gradient(160deg, #F1F4FF, #F9FAFF);
+        opacity: var(--gradient, 0);
+        transition: opacity .4s;
+    }
+`;
+
+const DarkModeToggle = styled.span`
+    font-size: 1.1rem;
+    margin-right: 1rem;
+`;
+
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -96,10 +194,14 @@ export default function Header() {
             <>
                 <Dropdown>
                     <Flex>
-                        <DropdownItem onClick={() => toggleTheme()}>
-                            <button onClick={toggleTheme}>
-                                current theme {theme}
-                            </button>
+                        <DropdownItem onClick={toggleTheme}>
+                            <DarkModeToggle>Dark Mode</DarkModeToggle>
+                            <Input type="checkbox" checked={theme === Theme.DARK} />
+                            <label>
+                                <Switch>
+                                    <Dot></Dot>
+                                </Switch>
+                            </label>
                         </DropdownItem>
                         <DropdownItem onClick={() => closeDropdown()}>Profile</DropdownItem>
                         <DropdownItem onClick={() => closeDropdown()}>Logout</DropdownItem>
