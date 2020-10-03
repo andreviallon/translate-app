@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Layout from '../components/layout';
+import ContextWrapper from '../components/contextWrapper';
+import Layout from '../components/Layout';
 
 export interface UserDetails {
   firstName: string;
@@ -13,9 +14,11 @@ export default function Home() {
         <title>Translate App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
-        <h1>content</h1>
-      </Layout>
+      <ContextWrapper>
+        <Layout>
+          <h1>content</h1>
+        </Layout>
+      </ContextWrapper>
       
     </div>
   )

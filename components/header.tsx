@@ -101,12 +101,8 @@ export default function Header() {
                                 current theme {theme}
                             </button>
                         </DropdownItem>
-                        <DropdownItem onClick={() => closeDropdown()}>
-                            Profile
-                        </DropdownItem>
-                        <DropdownItem onClick={() => closeDropdown()}>
-                            Logout
-                        </DropdownItem>
+                        <DropdownItem onClick={() => closeDropdown()}>Profile</DropdownItem>
+                        <DropdownItem onClick={() => closeDropdown()}>Logout</DropdownItem>
                     </Flex>
                 </Dropdown>
                 <Overlay onClick={() => closeDropdown()} />

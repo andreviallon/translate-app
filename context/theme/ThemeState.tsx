@@ -8,6 +8,7 @@ export enum Theme {
 
 export type ThemeContextType = {
     theme: Theme;
+    getTheme?: () => void;
     setTheme?: () => void;
 }
 
@@ -20,6 +21,12 @@ export const ThemeContext = createContext<ThemeContextType>(initialState);
 export const ThemeStateProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ThemeReducer, initialState);
 
+    function getTheme() {
+        dispatch({
+            type: "GET_THEME",
+        });
+    }
+
     function setTheme() {
         const newTheme = state.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
         dispatch({
@@ -30,7 +37,7 @@ export const ThemeStateProvider = ({ children }) => {
 
     return (
         <ThemeContext.Provider
-            value={{ theme: state.theme, setTheme }}>
+            value={{ theme: state.theme, getTheme, setTheme }}>
             {children}
         </ThemeContext.Provider>
     );
