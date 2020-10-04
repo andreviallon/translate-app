@@ -4,7 +4,6 @@ import { GlobalStyles } from "../core/global";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "../core/theme";
 import { Formik, Field, Form } from 'formik';
-import { Theme } from '../context/theme/ThemeState';
 
 interface Values {
     email: string;
@@ -39,7 +38,7 @@ const Info = styled.span`
 const FormikStyles = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
 
     input {
@@ -52,9 +51,9 @@ const FormikStyles = styled.div`
 
 const Label = styled.label`
     display: flex;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    margin: 1.2rem 0 0;
+    margin: 1.2rem 0 0.3rem;
 `;
 
 const Button = styled.button`
@@ -75,6 +74,10 @@ const Anchor = styled.a`
     margin-left: 0.3rem;
     font-weight: 600;
     cursor: pointer;
+`;
+
+const NoAccount = styled(Info)`
+    margin-bottom: 4rem;
 `;
 
 export default function LoginForm() {
@@ -104,7 +107,7 @@ export default function LoginForm() {
                                             </FormikStyles>
                                         </Form>
                                 </Formik>
-                                <Info>Do not have an account?<Anchor>Sign up</Anchor></Info>
+                                <NoAccount>Do not have an account?<Anchor>Sign up</Anchor></NoAccount>
                             </FlexContainer>
                         </Col>
                     </Row>
