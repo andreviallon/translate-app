@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import ContextWrapper from '../components/contextWrapper';
+import ContextWrapper from '../components/ContextWrapper';
 import Layout from '../components/Layout';
 
 export interface UserDetails {
@@ -19,7 +19,6 @@ export default function Home() {
           <h1>content</h1>
         </Layout>
       </ContextWrapper>
-      
     </div>
   )
 }

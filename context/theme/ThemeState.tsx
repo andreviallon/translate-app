@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import ThemeReducer from "./ThemeReducer";
+import Cookie from "js-cookie";
 
 export enum Theme {
     LIGHT = "light",
@@ -12,7 +13,7 @@ export type ThemeContextType = {
 }
 
 const initialState = {
-    theme: Theme.LIGHT
+    theme: Cookie.get('theme') ? Cookie.get('theme') : Theme.LIGHT
 };
 
 export const ThemeContext = createContext<ThemeContextType>(initialState);
@@ -22,6 +23,9 @@ export const ThemeStateProvider = ({ children }) => {
 
     function setTheme() {
         const newTheme = state.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
+
+        Cookie.set('theme', newTheme, { secure: true });
+
         dispatch({
             type: "SET_THEME",
             payload: newTheme,
