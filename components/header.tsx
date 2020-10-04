@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { Theme, ThemeContext } from '../context/theme/ThemeState';
@@ -143,7 +143,7 @@ const Switch = styled.div`
         border-radius: inherit;
         background: linear-gradient(90deg, #4F97FF, #3D85CC);
         opacity: var(--gradient, 0);
-        transition: opacity .4s;
+        transition: all .4s;
     }
 `;
 
@@ -169,7 +169,7 @@ const Dot = styled.div`
         border-radius: inherit;
         background: linear-gradient(160deg, #F1F4FF, #F9FAFF);
         opacity: var(--gradient, 0);
-        transition: opacity .4s;
+        transition: all .4s;
     }
 `;
 
@@ -180,8 +180,13 @@ const DarkModeToggle = styled.span`
 
 
 export default function Header() {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const { theme, setTheme } = useContext(ThemeContext);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [checked, setChecked] = useState(theme === Theme.DARK);
+
+    useEffect(() => {
+        setChecked(theme === Theme.DARK);
+    }, [theme])
 
     const toggleTheme = () => setTheme();
 
@@ -196,7 +201,7 @@ export default function Header() {
                     <Flex>
                         <DropdownItem onClick={toggleTheme}>
                             <DarkModeToggle>Dark Mode</DarkModeToggle>
-                            <Input type="checkbox" checked={theme === Theme.DARK} />
+                            <Input type="checkbox" defaultChecked={checked} />
                             <label>
                                 <Switch>
                                     <Dot></Dot>
