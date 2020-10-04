@@ -22,4 +22,8 @@ export const GlobalStyles = createGlobalStyle`
         color: inherit;
         text-decoration: none;
     }
+
+    textarea:focus, input:focus{
+        outline: none;
+    }
 `;
