@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-grid-system';
-import { GlobalStyles } from "../core/global";
+import { GlobalStyles } from "../styles/global";
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "../core/theme";
+import { lightTheme } from "../styles/theme";
 import { Formik, Field, Form } from 'formik';
 
 interface Values {

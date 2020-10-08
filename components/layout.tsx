@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useContext } from "react";
 import { Container, Row, Col } from 'react-grid-system';
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "../core/theme";
-import { GlobalStyles } from "../core/global";
+import { lightTheme, darkTheme } from "../styles/theme";
+import { GlobalStyles } from "../styles/global";
 import { ThemeContext, Theme} from "../context/theme/ThemeState";
 
 const Main = styled.div`

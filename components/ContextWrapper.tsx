@@ -1,4 +1,3 @@
-import React from "react";
 import { ThemeStateProvider } from "../context/theme/ThemeState";
 
 export default function ContextWrapper({ children }) {
