@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Toggle from './Toggle';
 import { useContext, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -82,97 +83,6 @@ const Overlay = styled.div`
     z-index: 2;
 `;
 
-const Input = styled.input`
-    display: none;
-        
-    &+label {
-        border-radius: 9px;
-        display: block;
-        cursor: pointer;
-        position: relative;
-        transition: box-shadow .4s;
-        
-        &:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: inherit;
-            transition: opacity .4s;
-        }
-    }
-    &:not(:checked) {
-        & + label {
-            pointer-events: none;
-            & + span {
-                opacity: 1;
-                transform: translateY(12px);
-            }
-        }
-    }
-    &:checked {
-        & + label {
-            --offset: 18px;
-            --gradient: 1;
-            --shadow: rgba(0, 6, 39, .1);
-            --light-shadow: rgba(255, 255, 255, .8);
-            --light-shadow-2: rgba(255, 255, 255, .1);
-        }
-    }
-`;
-
-const Switch = styled.div`
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-    vertical-align: top;
-    height: 22px;
-    width: 40px;
-    border-radius: 11px;
-    background: #ECEFFC;
-
-    &:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: inherit;
-        background: linear-gradient(90deg, #4F97FF, #3D85CC);
-        opacity: var(--gradient, 0);
-        transition: all .4s;
-    }
-`;
-
-const Dot = styled.div`
-    background: #D1D6EE;
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    left: -1px;
-    top: -1px;
-    transform: translateX(var(--offset, 0));
-    transition: transform .4s, box-shadow .4s;
-    box-shadow: -4px -4px 8px var(--light-shadow-2, transparent), 4px 4px 8px var(--shadow, transparent);
-
-    &:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: inherit;
-        background: linear-gradient(160deg, #F1F4FF, #F9FAFF);
-        opacity: var(--gradient, 0);
-        transition: all .4s;
-    }
-`;
-
 const DarkModeToggle = styled.span`
     font-size: 1.1rem;
     margin-right: 1rem;
@@ -182,10 +92,10 @@ const DarkModeToggle = styled.span`
 export default function Header() {
     const { theme, setTheme } = useContext(ThemeContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [checked, setChecked] = useState(theme === Theme.DARK);
+    const [isActive, setIsActive] = useState(theme === Theme.DARK);
 
     useEffect(() => {
-        setChecked(theme === Theme.DARK);
+        setIsActive(theme === Theme.DARK);
     }, [theme])
 
     const toggleTheme = () => setTheme();
@@ -201,12 +111,7 @@ export default function Header() {
                     <Flex>
                         <DropdownItem onClick={toggleTheme}>
                             <DarkModeToggle>Dark Mode</DarkModeToggle>
-                            <Input type="checkbox" defaultChecked={checked} />
-                            <label>
-                                <Switch>
-                                    <Dot></Dot>
-                                </Switch>
-                            </label>
+                            <Toggle isActive={isActive} onClick={() => setIsActive(!isActive)} />
                         </DropdownItem>
                         <DropdownItem onClick={() => closeDropdown()}>Profile</DropdownItem>
                         <DropdownItem onClick={() => closeDropdown()}>Logout</DropdownItem>

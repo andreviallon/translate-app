@@ -13,6 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "formik": "^2.1.7",
     "framer": "^1.2.8",
+    "framer-motion": "^2.7.9",
     "js-cookie": "^2.2.1",
     "next": "9.5.3",
     "react": "16.13.1",
