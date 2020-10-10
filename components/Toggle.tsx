@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Switch = styled.div`
     .switch {
-        width: 30px;
+        width: 35px;
         height: 20px;
         border-radius: 100px;
         padding: 0 5px;

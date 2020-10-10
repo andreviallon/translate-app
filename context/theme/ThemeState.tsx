@@ -9,17 +9,27 @@ export enum Theme {
 
 export type ThemeContextType = {
     theme: Theme;
+    setInitTheme?: () => void;
     setTheme?: () => void;
 }
 
 const initialState = {
-    theme: Cookie.get('theme') ? Cookie.get('theme') : Theme.LIGHT
+    theme: Theme.LIGHT
 };
 
 export const ThemeContext = createContext<ThemeContextType>(initialState);
 
 export const ThemeStateProvider = ({ children }) => {
     const [state, dispatch] = useReducer(ThemeReducer, initialState);
+
+    function setInitTheme() {
+        const initTheme = Cookie.get('theme') ? Cookie.get('theme') : Theme.LIGHT;
+
+        dispatch({
+            type: "SET_INIT_THEME",
+            payload: initTheme,
+        });
+    }
 
     function setTheme() {
         const newTheme = state.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
@@ -34,7 +44,7 @@ export const ThemeStateProvider = ({ children }) => {
 
     return (
         <ThemeContext.Provider
-            value={{ theme: state.theme, setTheme }}>
+            value={{ theme: state.theme, setInitTheme, setTheme }}>
             {children}
         </ThemeContext.Provider>
     );

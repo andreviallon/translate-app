@@ -2,11 +2,6 @@ import Head from 'next/head';
 import ContextWrapper from '../components/ContextWrapper';
 import Layout from '../components/Layout';
 
-export interface UserDetails {
-  firstName: string;
-  lastName: string;
-}
-
 export default function Home() {
   return (
     <div>

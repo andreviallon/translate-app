@@ -1,6 +1,6 @@
 import Header from './Header';
 import styled from 'styled-components';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Container, Row, Col } from 'react-grid-system';
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../styles/theme";
@@ -12,7 +12,11 @@ const Main = styled.div`
 `;
 
 export default function Layout({ children }) {
-	const { theme } = useContext(ThemeContext);
+    const { theme, setInitTheme } = useContext(ThemeContext);
+    
+    useEffect(() => {
+        setInitTheme();
+    }, [])
 
     return (
         <ThemeProvider theme={theme === Theme.LIGHT ? lightTheme : darkTheme}>

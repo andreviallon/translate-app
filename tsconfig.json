@@ -21,7 +21,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "styles/global.ts", "core/theme.ts", "context/theme/ThemeState.sx", "context/theme/ThemeState.tsx"
+    "**/*.tsx", "styles/global.ts", "core/theme.ts", "context/theme/ThemeState.sx", "context/theme/ThemeState.tsx", "pages/_document.tsx"
   ],
   "exclude": [
     "node_modules"

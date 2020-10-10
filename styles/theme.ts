@@ -9,7 +9,7 @@ export const lightTheme = {
 export const darkTheme = {
     body: "#212024",
     text: "#FFFFFF",
-    primary: "#3D85CC",
+    primary: "#4FA1F3",
     mediumGray: "#6E6E6E",
     lightPrimary: "#CDDAE7"
 };

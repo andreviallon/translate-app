@@ -9,6 +9,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     background-color: ${({ theme }) => theme.body};
+    color: ${({theme}) => theme.text};
     position: fixed;
     top: 0;
     left: 0;
