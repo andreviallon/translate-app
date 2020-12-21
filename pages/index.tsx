@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import ContextWrapper from '../components/ContextWrapper';
 import Layout from '../components/Layout';
+import Translate from '../components/Translate';
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       </Head>
       <ContextWrapper>
         <Layout>
-          <h1>content</h1>
+          <Translate />
         </Layout>
       </ContextWrapper>
     </div>

@@ -1,4 +1,4 @@
-import Header from './Header';
+import Header from './header';
 import styled from 'styled-components';
 import { useContext, useEffect } from "react";
 import { Container, Row, Col } from 'react-grid-system';
@@ -9,6 +9,7 @@ import { ThemeContext, Theme} from "../context/theme/ThemeState";
 
 const Main = styled.div`
     padding-top: 7rem;
+    width: 100%;
 `;
 
 export default function Layout({ children }) {
@@ -24,9 +25,7 @@ export default function Layout({ children }) {
             <Header />
             <Container>
                 <Row>
-                    <Col>
-                        <Main>{children}</Main>
-                    </Col>
+                    <Main>{children}</Main>
                 </Row>
             </Container>
         </ThemeProvider>

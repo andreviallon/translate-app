@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Toggle from './Toggle';
 import { useContext, useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { Theme, ThemeContext } from '../context/theme/ThemeState';
 
 const Nav = styled.nav`
@@ -27,7 +27,7 @@ const H1 = styled.h1`
 
 const Menu = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: baseline;
     flex-grow: 1;
 `;
@@ -127,18 +127,11 @@ export default function Header() {
         <Nav>
             <H1>Translate App</H1>
             <Menu>
-                <div>
-                    <MenuItem>Translate</MenuItem>
-                    <MenuItem>History</MenuItem>
-                    <MenuItem>Favorite</MenuItem>
-                </div>
-                <div>
-                    <UserMenuItem onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        <span>John Doe</span>
-                        <FontAwesomeIcon icon={faAngleDown} />
-                    </UserMenuItem>
-                    {dropdownOpen ? <HeaderDropdown /> : ""}
-                </div>
+                <UserMenuItem onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <span>John Doe</span>
+                    <FontAwesomeIcon icon={faAngleDown} />
+                </UserMenuItem>
+                {dropdownOpen ? <HeaderDropdown /> : ""}
             </Menu>
         </Nav>
     );
